@@ -10,7 +10,7 @@ services:
     networks:
       - akal-network
     volumes:
-      - client-volume:/app
+      - ./client:/app   # Use bind mount for development
     depends_on:
       - backend
     environment:
@@ -44,7 +44,6 @@ services:
 
 volumes:
   backend-volume:
-  client-volume:
   mongodb-data:
 
 networks:
