@@ -1,0 +1,52 @@
+version: '3'
+services:
+  client:
+    container_name: client-container
+    image: edensel/img-a:v2.0.0
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    networks:
+      - akal-network
+    volumes:
+      - client-volume:/app
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_BACKEND_URL=http://backend:5000/api 
+
+  backend:
+    container_name: backend-container
+    image: edensel/img-b:v2.0.0
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    networks:
+      - akal-network
+    volumes:
+      - backend-volume:/app
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/akal  
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: akal-mongodb
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - akal-network
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  backend-volume:
+  client-volume:
+  mongodb-data:
+
+networks:
+  akal-network:
+    driver: bridge
