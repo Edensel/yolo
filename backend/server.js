@@ -7,8 +7,8 @@ const upload = multer();
 const productRoute = require('./routes/api/productRoute');
 
 // Connecting to the Database
-let mongodb_url = 'mongodb+srv://edensel:Akal0007!@cluster0.v5mq8.mongodb.net/';
-let dbName = 'akal';
+let mongodb_url = process.env.MONGODB_URL;
+let dbName = process.env.DB_NAME;
 
 // define a url to connect to the database
 const MONGODB_URI = process.env.MONGODB_URI || mongodb_url + dbName
