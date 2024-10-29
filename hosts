@@ -1,1 +1,4 @@
 127.0.0.1 ansible_connection=local
+127.0.0.1   backend.local
+127.0.0.1   frontend.local
+127.0.0.1   mongo.local
