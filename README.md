@@ -7,7 +7,7 @@ Install the docker engine here:
 - [Docker](https://docs.docker.com/engine/install/) 
 
 ## How to launch the application 
-### Method 1 (faster)
+### Method 1 
 - NOTE: This method does not require cloning of this repository
 
 - Navigate to the launch_app folder and copy the contents of the [docker-compose.yaml] in the root of the project
