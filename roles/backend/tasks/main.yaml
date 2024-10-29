@@ -1,0 +1,25 @@
+---
+- name: Clone repository
+  git:
+    repo: "{{ repository_url }}"
+    dest: /home/vagrant/yolo
+    version: "{{ repository_version }}"
+
+- name: Build backend Docker image
+  docker_image:
+    name: "{{ edensel/img-a:v2.0.0 }}"
+    build:
+      path: /home/vagrant/yolo/backend
+    source: build
+    state: present
+
+- name: Run backend container
+  docker_container:
+    name: backend-container
+    image: "{{edensel/img-a:v2.0.0}}"
+    state: started
+    ports:
+      - "{{ backend_port }}:5000"
+    networks:
+      - "{{ network_name }}"
+    hostname: backend.local
