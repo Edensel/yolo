@@ -1,18 +1,23 @@
-ansible-playbook/
+YOLO/
+├── backend/
+│   ├── Dockerfile
+├── client/
+│   ├── Dockerfile
+├── images/                    # Directory for Docker images (if you're building them locally)
+├── manifests/
+│   ├── backend-deployment.yaml
+│   ├── client-deployment.yaml
+│   └── mongo-deployment.yaml
 ├── roles/
-│   ├── setup-mongodb/
-│   │   ├── tasks/
-│   │   │   └── main.yml
-│   │   └── vars/
-│   │       └── main.yml
-│   ├── backend-deployment/
-│   │   ├── tasks/
-│   │   │   └── main.yml
-│   │   └── vars/
-│   │       └── main.yml
-│   └── frontend-deployment/
-│       ├── tasks/
-│       │   └── main.yml
-│       └── vars/
-│           └── main.yml
-└── playbook.yml
+│   ├── backend/
+│   │   ├── tasks/maint.yaml    # Ansible task for the backend service
+│   ├── client/
+│   │   ├── tasks/maint.yaml    # Ansible task for the client service
+├── Docker-compose.yaml         # Docker Compose file (for local dev)
+├── hosts                       # Hosts for Ansible (if applicable)
+├── explanation.md              # Explanation of deployment choices
+├── inventory.yaml              # Ansible inventory
+├── mongo-StatefulSet.yaml      # Kubernetes StatefulSet for MongoDB (with persistence)
+├── playbook.yaml               # Ansible playbook (possibly for deployment)
+├── README.md                   # Project documentation
+├── Vagrantfile                  # Vagrant configuration (probably for dev environments)

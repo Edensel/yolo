@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: client-deployment
+  namespace: yolo-app
 spec:
   replicas: 2
   selector:
@@ -15,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: edensel/img-a:v1.0.0  
+          image: edensel/img-a:v2.0.0  
           ports:
             - containerPort: 3000
           env:
