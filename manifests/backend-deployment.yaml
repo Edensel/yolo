@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: edensel/img-b:v2.0.0  # Update this to your backend image
+          image: edensel/img-b:v2.0.0  
           ports:
             - containerPort: 5000
           env:
