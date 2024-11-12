@@ -1,3 +1,4 @@
+# Client Deployment and Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,9 +15,12 @@ spec:
     spec:
       containers:
         - name: client
-          image: edensel/img-a:v1.0.0
+          image: edensel/img-a:v2.0.0  # Update this to your client image version
           ports:
             - containerPort: 3000
+          env:
+            - name: REACT_APP_BACKEND_URL
+              value: http://backend-service:5000/api  # Points to the backend-service in Kubernetes
           resources:
             requests:
               memory: "128Mi"
@@ -24,17 +28,19 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
+      imagePullSecrets:
+        - name: my-docker-secret  # If using a private registry
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: client-service
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  # Exposing the client service externally if needed
   selector:
     app: client
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-
