@@ -1,3 +1,4 @@
+# Backend Deployment and Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,12 +15,12 @@ spec:
     spec:
       containers:
         - name: backend
-          image: edensel/img-a:v2.0.0
+          image: edensel/img-b:v2.0.0  # Update this to your backend image
           ports:
             - containerPort: 5000
           env:
             - name: MONGODB_URI
-              value: mongodb://mongo-service.default.svc.cluster.local:27017/akal
+              value: mongodb://mongo-service:27017/akal  # Correctly points to the mongo-service
           resources:
             requests:
               memory: "128Mi"
@@ -27,17 +28,19 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
+      imagePullSecrets:
+        - name: my-docker-secret  # If using a private registry
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  # Exposing the backend service externally if needed
   selector:
     app: backend
   ports:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-
