@@ -1,4 +1,4 @@
-# mongodb-statefulset.yaml
+# MongoDB StatefulSet and Service
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -17,22 +17,22 @@ spec:
         app: mongo
     spec:
       containers:
-      - name: mongo
-        image: mongo:4.4.6
-        ports:
-        - containerPort: 27017
-          name: mongo
-        volumeMounts:
-        - name: mongo-persistent-storage
-          mountPath: /data/db
+        - name: mongo
+          image: mongo:4.4.6
+          ports:
+            - containerPort: 27017
+              name: mongo
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /data/db
   volumeClaimTemplates:
-  - metadata:
-      name: mongo-persistent-storage
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
+    - metadata:
+        name: mongo-persistent-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
 
 ---
 apiVersion: v1
@@ -40,11 +40,10 @@ kind: Service
 metadata:
   name: mongo-service
 spec:
-  type: LoadBalancer
   selector:
     app: mongo
   ports:
     - protocol: TCP
       port: 27017
       targetPort: 27017
-
+  clusterIP: None  # This is necessary for StatefulSets to allow communication between replicas if needed
