@@ -52,3 +52,7 @@ https://hub.docker.com/repository/docker/edensel/yolo/tags
 
 ## How to run the app
 Use vagrant up --provison command
+
+## Update
+
+This app portfolio has been updated.
